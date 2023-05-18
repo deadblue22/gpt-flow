@@ -25,8 +25,8 @@ function FlowBox({ children, ...props }) {
   );
 }
 
-function ChatBox({
-  prompt,
+function CompletionBox({
+  prompt = "",
   result,
   handleRemove,
   handleInputChange,
@@ -36,7 +36,7 @@ function ChatBox({
     <FlowBox {...props}>
       <FormControl>
         <Flex justify="space-between">
-          <FormLabel>Chat Prompt</FormLabel>
+          <FormLabel>Completion Prompt</FormLabel>
           <Button
             size="xs"
             colorScheme="pink"
@@ -68,6 +68,11 @@ const InputBox = ({ input, onChange }) => {
   );
 };
 
+// 插入结果到占位符的函数
+function insertResultIntoPrompt(prompt, result) {
+  return prompt.replace("{result}", result);
+}
+
 export default function Home() {
   const [input, setInput] = useState("");
   const [promptBoxList, setPromptBoxList] = useState([{ id: 0, prompt: "" }]);
@@ -92,7 +97,7 @@ export default function Home() {
       promptBoxList.length > 0
         ? promptBoxList[promptBoxList.length - 1].id + 1
         : 0;
-    setPromptBoxList([...promptBoxList, { id: newId, prompt: undefined }]);
+    setPromptBoxList([...promptBoxList, { id: newId, prompt: "" }]);
     setResultList([...resultList, { id: newId, result: undefined }]);
   };
 
@@ -108,24 +113,39 @@ export default function Home() {
   const handleRun = async () => {
     setLoading(true);
     let currentResult = input;
-    const newResultList = [];
 
-    for (const prompt of promptBoxList) {
+    // Sort promptBoxList by id to ensure correct execution order
+    const sortedPromptBoxList = [...promptBoxList].sort((a, b) => a.id - b.id);
+
+    for (const prompt of sortedPromptBoxList) {
       try {
-        console.log(prompt.prompt + currentResult);
+        const finalPrompt = insertResultIntoPrompt(
+          prompt.prompt,
+          currentResult,
+        );
+        console.log(finalPrompt);
         const response = await axios.post("/api/completion", {
-          prompt: prompt.prompt + currentResult,
+          prompt: finalPrompt,
         });
 
         currentResult = response.data.text;
         console.log(currentResult);
-        newResultList.push({ id: prompt.id, result: currentResult });
+
+        // Update the resultList with the new result
+        setResultList((prevResultList) => {
+          const updatedResultList = prevResultList.map((result) => {
+            if (result.id === prompt.id) {
+              return { id: result.id, result: currentResult };
+            }
+            return result;
+          });
+          return updatedResultList;
+        });
       } catch (error) {
         console.error("Error fetching data:", error);
         break;
       }
     }
-    setResultList(newResultList);
     setLoading(false);
   };
 
@@ -134,9 +154,9 @@ export default function Home() {
       <InputBox input={input} onChange={handleInputChange} />
       {promptBoxList.map((promptBox) => (
         <Box key={promptBox.id}>
-          <ChatBox
+          <CompletionBox
             prompt={promptBox.prompt}
-            result={resultList[promptBox.id]}
+            result={resultList.find((result) => result.id === promptBox.id)}
             handleRemove={() => handleRemovePromptBox(promptBox.id)}
             handleInputChange={(e) =>
               handlePromptBoxInputChange(e, promptBox.id)
