@@ -2,12 +2,16 @@ import {
   Box,
   Flex,
   Textarea,
+  IconButton,
+  Heading,
+  Select,
   FormControl,
   FormLabel,
   Button,
 } from "@chakra-ui/react";
 import axios from "axios";
 import { useState } from "react";
+import { AiFillDelete } from "react-icons/ai";
 
 function FlowBox({ children, ...props }) {
   return (
@@ -25,7 +29,7 @@ function FlowBox({ children, ...props }) {
   );
 }
 
-function CompletionBox({
+function GPTBox({
   prompt = "",
   result,
   handleRemove,
@@ -34,25 +38,35 @@ function CompletionBox({
 }) {
   return (
     <FlowBox {...props}>
-      <FormControl>
+      <Flex direction="column" gap={4}>
         <Flex justify="space-between">
-          <FormLabel>Completion Prompt</FormLabel>
-          <Button
+          <Heading size="md">Step</Heading>
+          <IconButton
+            icon={<AiFillDelete />}
             size="xs"
             colorScheme="pink"
-            variant="ghost"
             onClick={handleRemove}
           >
             Remove
-          </Button>
+          </IconButton>
         </Flex>
-        <Textarea onChange={handleInputChange} value={prompt} />
-      </FormControl>
-      {result?.result && (
-        <Box bgColor="orange.50" rounded="md" mt={4} p={2}>
-          {result.result}
-        </Box>
-      )}
+        <FormControl>
+          <FormLabel>Type</FormLabel>
+          <Select defaultValue="chat">
+            <option value="chat">Chat</option>
+            <option value="completion">Completion</option>
+          </Select>
+        </FormControl>
+        <FormControl>
+          <FormLabel>Prompt</FormLabel>
+          <Textarea onChange={handleInputChange} value={prompt} />
+        </FormControl>
+        {result?.result && (
+          <Box bgColor="orange.50" rounded="md" mt={4} p={2}>
+            {result.result}
+          </Box>
+        )}
+      </Flex>
     </FlowBox>
   );
 }
@@ -154,7 +168,7 @@ export default function Home() {
       <InputBox input={input} onChange={handleInputChange} />
       {promptBoxList.map((promptBox) => (
         <Box key={promptBox.id}>
-          <CompletionBox
+          <GPTBox
             prompt={promptBox.prompt}
             result={resultList.find((result) => result.id === promptBox.id)}
             handleRemove={() => handleRemovePromptBox(promptBox.id)}
@@ -165,7 +179,7 @@ export default function Home() {
         </Box>
       ))}
       <Button w="200px" mx="auto" onClick={handleAddPromptBox}>
-        +
+        Add Step
       </Button>
       <Button
         isLoading={loading}
