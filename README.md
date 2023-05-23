@@ -2,6 +2,9 @@
 
 GPT Flow is an open-source web-based tool that helps users who are not familiar with coding to create, validate, and debug sequences of calls to the ChatGPT API. It's built using React, Chakra UI, and Axios.
 
+## Notice
+This is a project that is currently under development.
+
 ## Features
 
 - No coding skills required
@@ -14,27 +17,27 @@ GPT Flow is an open-source web-based tool that helps users who are not familiar 
 
 1. Clone the repository:
 
-   ````
-   git clone https://github.com/himmel22/gpt-flow.git
-   ```
+```
+git clone https://github.com/himmel22/gpt-flow.git
+```
 
 2. Change to the project directory:
 
-   ````
-   cd gpt-flow
-   ```
+```
+cd gpt-flow
+```
 
 3. Install the dependencies:
 
-   ````
-   npm install
-   ```
+```
+npm install
+```
 
 4. Run the development server:
 
-   ````
-   npm run dev
-   ```
+```
+npm run dev
+```
 
 5. Open your browser and navigate to `http://localhost:3000`.
 
