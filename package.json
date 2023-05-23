@@ -12,11 +12,20 @@
     "@chakra-ui/react": "^2.6.1",
     "@emotion/react": "^11.11.0",
     "@emotion/styled": "^11.11.0",
+    "axios": "^1.4.0",
+    "axios-hooks": "^4.0.0",
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.1",
     "framer-motion": "^10.12.9",
     "next": "13.4.1",
+    "openai": "^3.2.1",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-icons": "^4.8.0"
+  },
+  "devDependencies": {
+    "eslint-config-prettier": "^8.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.8.8"
   }
 }
