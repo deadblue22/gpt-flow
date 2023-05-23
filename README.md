@@ -1,54 +1,56 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with
-[`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GPT Flow
 
-## Getting Started
+GPT Flow is an open-source web-based tool that helps users who are not familiar with coding to create, validate, and debug sequences of calls to the ChatGPT API. It's built using React, Chakra UI, and Axios.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+- No coding skills required
+- Add, remove, and reorder steps in the sequence
+- Automatically inserts previous step results into the current step's prompt
+- Displays output of each step in the sequence
+- User-friendly interface
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the
-result.
+## Installation
 
-You can start editing the page by modifying `pages/index.js`. The page
-auto-updates as you edit the file.
+1. Clone the repository:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on
-[http://localhost:3000/api/hello](http://localhost:3000/api/hello). This
-endpoint can be edited in `pages/api/hello.js`.
+   ````
+   git clone https://github.com/himmel22/gpt-flow.git
+   ```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are
-treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead
-of React pages.
+2. Change to the project directory:
 
-This project uses
-[`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to
-automatically optimize and load Inter, a custom Google Font.
+   ````
+   cd gpt-flow
+   ```
 
-## Learn More
+3. Install the dependencies:
 
-To learn more about Next.js, take a look at the following resources:
+   ````
+   npm install
+   ```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js
-  features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Run the development server:
 
-You can check out
-[the Next.js GitHub repository](https://github.com/vercel/next.js/) - your
-feedback and contributions are welcome!
+   ````
+   npm run dev
+   ```
 
-## Deploy on Vercel
+5. Open your browser and navigate to `http://localhost:3000`.
 
-The easiest way to deploy your Next.js app is to use the
-[Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme)
-from the creators of Next.js.
+## Usage
 
-Check out our
-[Next.js deployment documentation](https://nextjs.org/docs/deployment) for more
-details.
+1. Input your initial text in the "Input" box.
+2. Add a new step to the sequence by clicking the "Add Step" button.
+3. Choose the type of API call (`chat` or `completion`) for each step.
+4. Enter the prompt for each step. You can use the `{result}` placeholder to insert the result of the previous step.
+5. Remove a step by clicking the "Remove" button next to the step's title.
+6. Click the "RUN" button to execute the sequence of API calls. The results will be displayed below each step.
+
+## Contributing
+
+Contributions are welcome! Feel free to submit issues or pull requests.
+
+## License
+
+This project is licensed under the MIT License.
