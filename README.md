@@ -18,7 +18,7 @@ This is a project that is currently under development.
 1. Clone the repository:
 
 ```
-git clone https://github.com/himmel22/gpt-flow.git
+git clone https://github.com/deadblue22/gpt-flow.git
 ```
 
 2. Change to the project directory:
